@@ -1,0 +1,18 @@
+version : '3.8'
+services :
+  express :
+    image: express
+    ports:
+      - "8000:8000"
+    restart: always
+    deploy:
+       mode: replicated
+       replicas: 3
+       placement:
+         max_replicas_per_node: 3
+       restart_policy:
+         condition: any
+       resources:
+         limits:
+            memory: 2000M
+

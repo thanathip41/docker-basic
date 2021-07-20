@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - ${PORT}:80
+    volumes:
+      - ./dist:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    restart: always
+    deploy:
+       mode: replicated
+       replicas: 3
+       placement:
+         max_replicas_per_node: 3
+       restart_policy:
+         condition: any
+       resources:
+         limits:
+            memory: 2000M
+
