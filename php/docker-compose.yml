@@ -1,0 +1,37 @@
+version: '2'
+services:
+  php:
+      build: . 
+      # image: php:7-fpm-alpine
+      image: php:app
+      container_name: php-fpm
+      restart: always
+      working_dir: /app/php
+      volumes:
+        - ./www/:/app/php
+      expose:
+        - "9000"
+  nginx:
+      image: nginx:alpine
+      container_name: php-nginx
+      restart: always
+      volumes:
+        - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+        - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      volumes_from:
+        - php
+      ports:
+        - 7000:80
+
+  # composer:
+  #   build:
+  #     context: .
+  #     dockerfile: ./composer/Dockerfile
+  #   container_name: composer
+  #   volumes:
+  #     - ./www/:/app/php
+  #   working_dir: /app/php
+  #   depends_on:
+  #     - php
+  #   user: laravel
+  #   entrypoint: ['composer', '--ignore-platform-reqs']

@@ -1,3 +1,3 @@
-FROM mysql:5.6
+FROM mysql:latest
 
-ADD dump.sql /docker-entrypoint-initdb.d/db.sql
+ADD db.sql /docker-entrypoint-initdb.d/db.sql

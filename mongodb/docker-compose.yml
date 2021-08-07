@@ -1,0 +1,39 @@
+# version: '2'
+
+# networks:
+#   mongodb_net:
+#     driver: bridge
+#     ipam:
+#       driver: default
+# services:
+#     mongodb:
+#       image: mongo:latest
+#       container_name: mongodb
+#       hostname: mongodb
+#       restart: always
+#       networks:
+#         - mongodb_net
+#       ports:
+#         - 27017:27017
+
+version: '2'
+
+networks:
+  mongodb_net:
+    driver: bridge
+    ipam:
+      driver: default
+services:
+    mongodb:
+      image: mongo:latest
+      container_name: mongodb
+      hostname: mongodb
+      restart: always
+      networks:
+        - mongodb_net
+      ports:
+        - ${MONGODB_PORT}:${MONGODB_PORT}
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: "${MONGODB_USER}"
+        MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_PASSWORD}"
+
